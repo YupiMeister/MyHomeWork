@@ -6,15 +6,15 @@ import java.util.List;
 public class DataList {
     private static DataList dataList;
     private final List<DataSource> sData;
-    private int i;
+    private int counterNumbers;
 
     public List<DataSource> getData() {
         return sData;
     }
 
     public void addList() {
-        sData.add(new DataSource(i));
-        i++;
+        sData.add(new DataSource(counterNumbers));
+        counterNumbers++;
     }
 
     public synchronized static DataList getInstance() {
@@ -27,10 +27,10 @@ public class DataList {
 
     private DataList() {
         sData = new ArrayList<DataSource>();
-        i = 1;
+        counterNumbers = 1;
 
-        for (; i <= 100; i++) {
-            sData.add(new DataSource(i));
+        for (; counterNumbers <= 100; counterNumbers++) {
+            sData.add(new DataSource(counterNumbers));
         }
     }
 }
