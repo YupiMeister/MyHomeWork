@@ -31,7 +31,7 @@ public class DataList {
     }
 
     private DataList(int counterNumbers) {
-        sData = new ArrayList<DataSource>(RecyclerFragment.DEFAULT_VALUE);
+        sData = new ArrayList<DataSource>(counterNumbers + counterNumbers / 2);
         this.counterNumbers = counterNumbers;
 
         for (int i = 1; i <= counterNumbers; i++) {
