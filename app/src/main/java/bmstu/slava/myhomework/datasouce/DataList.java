@@ -1,5 +1,8 @@
 package bmstu.slava.myhomework.datasouce;
 
+import android.util.Log;
+import bmstu.slava.myhomework.myfragment.RecyclerFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +16,26 @@ public class DataList {
     }
 
     public void addList() {
-        sData.add(new DataSource(counterNumbers));
         counterNumbers++;
+        sData.add(new DataSource(counterNumbers));
     }
 
-    public synchronized static DataList getInstance() {
+    public synchronized static DataList getInstance(int counterNumbers) {
         if (dataList == null) {
-            dataList = new DataList();
+            dataList = new DataList(counterNumbers);
+
+            Log.d("getInstance", "GetINSTANCE");
         }
 
         return dataList;
     }
 
-    private DataList() {
-        sData = new ArrayList<DataSource>();
-        counterNumbers = 1;
+    private DataList(int counterNumbers) {
+        sData = new ArrayList<DataSource>(RecyclerFragment.DEFAULT_VALUE);
+        this.counterNumbers = counterNumbers;
 
-        for (; counterNumbers <= 100; counterNumbers++) {
-            sData.add(new DataSource(counterNumbers));
+        for (int i = 1; i <= counterNumbers; i++) {
+            sData.add(new DataSource(i));
         }
     }
 }

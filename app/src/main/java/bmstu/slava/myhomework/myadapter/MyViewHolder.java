@@ -8,6 +8,7 @@ import bmstu.slava.myhomework.R;
 import bmstu.slava.myhomework.clicklestener.MyClickListener;
 import bmstu.slava.myhomework.datasouce.DataList;
 import bmstu.slava.myhomework.datasouce.DataSource;
+import bmstu.slava.myhomework.myfragment.RecyclerFragment;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
     private final TextView textNumber;
@@ -19,7 +20,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
         textNumber.setOnClickListener(v -> {
             int pos = getAdapterPosition();
-            DataSource source = DataList.getInstance().getData().get(pos);
+            DataSource source = DataList.getInstance(RecyclerFragment.DEFAULT_VALUE).getData().get(pos);
 
             myClickListener.onSoloClick(source);
         });

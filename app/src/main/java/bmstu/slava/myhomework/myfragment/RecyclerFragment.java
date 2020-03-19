@@ -24,10 +24,10 @@ import bmstu.slava.myhomework.myadapter.MyDataAdapter;
  */
 public class RecyclerFragment extends BaseFragment implements MyClickListener {
     public static final String TAG = "RecyclerFragment";
-    private final int COLUMNS_HORIZONTAL = 4;
-    private final int COLUMNS_VERTICAL = 3;
+    public static final int DEFAULT_VALUE = 100;
 
     private MyDataAdapter mAdapter;
+    private int dataSize = DEFAULT_VALUE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,25 +39,30 @@ public class RecyclerFragment extends BaseFragment implements MyClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (savedInstanceState != null) {
+            dataSize = savedInstanceState.getInt("counterElements");
+        }
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
         Button button = (Button) view.findViewById(R.id.button_add);
         button.setOnClickListener(v -> {
-            DataList.getInstance().addList();
+            DataList.getInstance(dataSize).addList();
             mAdapter.notifyDataSetChanged();
         });
 
-        mAdapter = new MyDataAdapter(DataList.getInstance().getData(), this);
-        int horizontal = getResources().getBoolean(R.bool.is_horizontal) ?
-                GridLayoutManager.HORIZONTAL : GridLayoutManager.VERTICAL;
+        mAdapter = new MyDataAdapter(DataList.getInstance(dataSize).getData(), this);
+        int counterColumns = getResources().getInteger(R.integer.counter_columns);
 
-        if (horizontal == GridLayoutManager.HORIZONTAL) {
-            recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), COLUMNS_HORIZONTAL));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), COLUMNS_VERTICAL));
-        }
-
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), counterColumns));
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("counterElements", mAdapter.getmData().size());
     }
 
     @Override

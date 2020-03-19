@@ -43,4 +43,8 @@ public class MyDataAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount() {
         return mData.size();
     }
+
+    public List<DataSource> getmData() {
+        return mData;
+    }
 }
