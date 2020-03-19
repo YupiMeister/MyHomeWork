@@ -15,7 +15,7 @@
             android:layout_height="64dp"
             android:padding="16dp"
             android:gravity="center"
-            tools:text="1"
+            tools:text="2"
     />
 
 </RelativeLayout>
